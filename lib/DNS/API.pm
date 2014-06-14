@@ -33,7 +33,7 @@ sub lookup
 
     if ($query)
     {
-        foreach my $rr ( $query->answer )
+        foreach my $rr (sort $query->answer )
         {
             my %obj = %{ $rr };
 
