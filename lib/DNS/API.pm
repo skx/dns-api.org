@@ -57,19 +57,19 @@ sub lookup
 
 
 get '/' => sub {
-     send_file 'index.html';
- };
+    send_file 'index.html';
+};
 
 get '/:type/:domain' => sub {
 
-      my $domain  = params->{ 'domain' };
-      my $rtype   = params->{ 'type' };
-      my @results = lookup( $domain, $rtype );
+    my $domain  = params->{ 'domain' };
+    my $rtype   = params->{ 'type' };
+    my @results = lookup( $domain, $rtype );
 
-      content_type 'application/json';
+    content_type 'application/json';
 
-      return ( to_json( \@results ) );
-  };
+    return ( to_json( \@results ) );
+};
 
 
 1;
