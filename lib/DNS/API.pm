@@ -1,3 +1,57 @@
+#!/usr/bin/perl
+
+=head1 NAME
+
+DNS::API - A simple DNS API.
+
+=cut
+
+=head1 ABOUT
+
+DNS::API is a simple L<Dancer> application which will respond to DNS
+requests received via HTTP, with JSON-encoded results.
+
+In brief HTTP requests will be made of the form:
+
+=for example begin
+
+   http://server.name:port/record/hostname
+
+=for example end
+
+Where I<record> is a string such as "A", "AAAA", "MX", "NS", and
+I<hostname> is the name to query.
+
+The returned data will be a JSON-encoded array of hashes.
+
+=cut
+
+=head1 Live Usage
+
+The code is deployed in production at http://dns-api.org/
+
+=cut
+
+=head1 AUTHOR
+
+ Steve
+ --
+ http://www.steve.org.uk/
+
+=cut
+
+=head1 LICENSE
+
+Copyright (c) 2014 by Steve Kemp.  All rights reserved.
+
+This module is free software;
+you can redistribute it and/or modify it under
+the same terms as Perl itself.
+The LICENSE file contains the full text of the license.
+
+=cut
+
+
 
 package DNS::API;
 
@@ -22,18 +76,17 @@ Perform a lookup against DNS.
 
 sub lookup
 {
-    my ( $record, $type ) = (@_);
+    my (%params) = (@_);
 
-    $type ||= "any";
-
-    my $res = Net::DNS::Resolver->new;
-    my $query = $res->search( $record, $type );
+    my $res = Net::DNS::Resolver->new();
+    my $query =
+      $res->search( $params{ 'domain' }, $params{ '$type' } || "any" );
 
     my @result;
 
     if ($query)
     {
-        foreach my $rr (sort $query->answer )
+        foreach my $rr ( sort $query->answer )
         {
             my %obj = %{ $rr };
 
@@ -56,20 +109,39 @@ sub lookup
 
 
 
+#
+#  Serve the index-page.
+#
 get '/' => sub {
     send_file 'index.html';
 };
 
+
+#
+#  Respond to a request.
+#
 get '/:type/:domain/?' => sub {
 
-    my $domain  = params->{ 'domain' };
-    my $rtype   = params->{ 'type' };
-    my @results = lookup( $domain, $rtype );
+    my $domain = params->{ 'domain' };
+    my $rtype  = params->{ 'type' };
+
+    my @results = lookup( domain => $domain,
+                          type   => $rtype, );
 
     content_type 'application/json';
 
     return ( to_json( \@results ) );
 };
 
+
+#
+#  Send our version
+#
+get '/version/?' => sub {
+
+    content_type 'application/json';
+    my %result = ( version => $VERSION );
+    return ( to_json( \%result ) );
+};
 
 1;
