@@ -80,7 +80,7 @@ sub lookup
 
     my $res = Net::DNS::Resolver->new();
     my $query =
-      $res->search( $params{ 'domain' }, $params{ '$type' } || "any" );
+      $res->search( $params{ 'domain' }, $params{ 'type' } ? $params{'type'} :  "any" );
 
     my @result;
 
