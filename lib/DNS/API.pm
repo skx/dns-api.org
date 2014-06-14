@@ -60,7 +60,7 @@ get '/' => sub {
     send_file 'index.html';
 };
 
-get '/:type/:domain' => sub {
+get '/:type/:domain/?' => sub {
 
     my $domain  = params->{ 'domain' };
     my $rtype   = params->{ 'type' };
