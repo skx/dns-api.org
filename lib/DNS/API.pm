@@ -80,35 +80,44 @@ sub lookup
 
     my $res = Net::DNS::Resolver->new( udp_timeout => 10,
                                        tcp_timeout => 10 );
-    my $query =
-      $res->search( $params{ 'domain' }, $params{ 'type' } ? $params{'type'} :  "any" );
-
+    my $query;
     my @result;
 
-    if ( $query )
+    my $count = 0;
+    my $retry = 5;
+
+    while ( $count < $retry )
     {
-        foreach my $rr ( sort $query->answer )
+        $query =
+          $res->search( $params{ 'domain' },
+                        $params{ 'type' } ? $params{ 'type' } : "any" );
+
+        if ($query)
         {
-            my %obj = %{ $rr };
-
-            my %x;
-            foreach my $k ( keys %obj )
+            foreach my $rr ( sort $query->answer )
             {
-                next
-                  if ( ( $k eq "rdata" ) ||
-                       ( $k eq "class" ) ||
-                       ( $k eq "rdlength" ) );
+                my %obj = %{ $rr };
 
-                $x{ $k } = $obj{ $k };
+                my %x;
+                foreach my $k ( keys %obj )
+                {
+                    next
+                      if ( ( $k eq "rdata" ) ||
+                           ( $k eq "class" ) ||
+                           ( $k eq "rdlength" ) );
+
+                    $x{ $k } = $obj{ $k };
+                }
+                push( @result, \%x );
             }
-            push( @result, \%x );
+            return (@result);
         }
-        return( @result );
+        $count += 1;
     }
 
     @result = ();
-    push( @result, { 'error' =>  $res->errorstring  } );
-    return( @result );
+    push( @result, { 'error' => $res->errorstring } );
+    return (@result);
 
 }
 
