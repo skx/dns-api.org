@@ -78,7 +78,8 @@ sub lookup
 {
     my (%params) = (@_);
 
-    my $res = Net::DNS::Resolver->new();
+    my $res = Net::DNS::Resolver->new( udp_timeout => 10,
+                                       tcp_timeout => 10 );
     my $query =
       $res->search( $params{ 'domain' }, $params{ 'type' } ? $params{'type'} :  "any" );
 
