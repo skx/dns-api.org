@@ -84,7 +84,7 @@ sub lookup
 
     my @result;
 
-    if ($query)
+    if ( $query )
     {
         foreach my $rr ( sort $query->answer )
         {
@@ -102,9 +102,13 @@ sub lookup
             }
             push( @result, \%x );
         }
+        return( @result );
     }
 
-    @result;
+    @result = ();
+    push( @result, { 'error' =>  $res->errorstring  } );
+    return( @result );
+
 }
 
 
@@ -129,7 +133,6 @@ get '/:type/:domain/?' => sub {
                           type   => $rtype, );
 
     content_type 'application/json';
-
     return ( to_json( \@results ) );
 };
 
