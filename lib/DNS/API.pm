@@ -62,6 +62,7 @@ use warnings;
 
 use Net::DNS::Resolver;
 use Dancer;
+use JSON;
 
 our $VERSION = '0.2';
 
@@ -91,28 +92,24 @@ sub lookup
         $query =
           $res->search( $params{ 'domain' },
                         $params{ 'type' } ? $params{ 'type' } : "any" );
-
         if ($query)
         {
             foreach my $rr ( sort $query->answer )
             {
-                my %obj = %{ $rr };
-
                 my %x;
-                foreach my $k ( keys %obj )
-                {
-                    next
-                      if ( ( $k eq "rdata" ) ||
-                           ( $k eq "class" ) ||
-                           ( $k eq "rdlength" ) );
 
-                    $x{ $k } = $obj{ $k };
-                }
+                $x{ 'type' }  = $rr->type();
+                $x{ 'ttl' }   = $rr->ttl();
+                $x{ 'name' }  = $rr->name();
+                $x{ 'value' } = $rr->rdstring()
+
                 push( @result, \%x );
             }
             return (@result);
         }
+
         $count += 1;
+
     }
 
     @result = ();
@@ -143,7 +140,11 @@ get '/:type/:domain/?' => sub {
                           type   => $rtype, );
 
     content_type 'application/json';
-    return ( to_json( \@results ) );
+
+    my $json = JSON->new();
+    my $out  = $json->encode( \@results );
+
+    return ($out);
 };
 
 
@@ -154,7 +155,10 @@ get '/version/?' => sub {
 
     content_type 'application/json';
     my %result = ( version => $VERSION );
-    return ( to_json( \%result ) );
+
+    my $json = JSON->new();
+    my $out  = $json->encode( \%result );
+    return ( $out );
 };
 
 1;
