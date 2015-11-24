@@ -101,7 +101,7 @@ sub lookup
                 $x{ 'type' }  = $rr->type();
                 $x{ 'ttl' }   = $rr->ttl();
                 $x{ 'name' }  = $rr->name();
-                $x{ 'value' } = $rr->rdstring()
+                $x{ 'value' } = $rr->rdstring();
 
                 push( @result, \%x );
             }
