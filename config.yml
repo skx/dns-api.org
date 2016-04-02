@@ -10,4 +10,17 @@ appname: "DNS-API"
 # about unicode within your app when this setting is set (recommended).
 charset: "UTF-8"
 
+#
+# Setting this will ensure that redirection links, etc, will have
+# the correct hostname.  It doesn't handle getting the real IP
+# from the proxy though, instead see the next setting.
+#
 behind_proxy: true
+
+#
+# This will allow the real remote IP to be determined and logged.
+#
+plack_middlewares:
+      -
+          - ReverseProxy
+
