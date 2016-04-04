@@ -23,4 +23,3 @@ behind_proxy: true
 plack_middlewares:
       -
           - ReverseProxy
-
