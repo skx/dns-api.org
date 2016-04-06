@@ -6,7 +6,7 @@ This repository contains the code for a simple daemon which provides
 an online DNS-lookup service.
 
 The service responds to requests received via HTTP with a JSON-encoded
-response, in the event of error this response will be empty.
+response.   In the event of error this response will be empty.
 
 
 Implementation
@@ -28,7 +28,7 @@ Once this repository is cloned you may launch it via the provided
 To deploy for the real world you'll need to install the dependencies
 and place behind a reverse HTTP-proxy:
 
-    # apt-get install twiggy libdancer-perl
+    # apt-get install twiggy libdancer-perl libnet-cidr-lite-perl libplack-middleware-reverseproxy-perl
 
 
 Steve
