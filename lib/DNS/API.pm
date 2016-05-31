@@ -62,7 +62,7 @@ use warnings;
 
 use Net::DNS::Resolver;
 use Dancer;
-use JSON;
+use JSON qw!!;
 
 our $VERSION = '0.3';
 
