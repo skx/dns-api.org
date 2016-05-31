@@ -1,74 +1,150 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
     <link rel="author" href="/humans.txt" />
     <meta name="description" content="API for DNS lookups" />
     <meta name="keywords" content="dns, json, api" />
     <title>DNS-API.org - An online DNS lookup service</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+    <style type="text/css">
+      body {
+      padding-top: 50px;
+      }
+
+      .navbar-brand {
+      line-height:12px;
+      padding-top:20px;
+      padding-bottom:5px;
+      }
+
+      .navbar-brand small {
+      display:inline;
+      color: silver !important;
+      font-size:75%;
+      }
+
+      .wrapper {
+        margin-bottom: 100px;
+      }
+      .steve-footer {
+      margin-top: 70px;
+      color: #999;
+      background-color: #f9f9f9;
+      border-top: 1px solid #e5e5e5;
+      }
+      .steve-footer .nav-header {
+      color: black;
+      font-weight: bold;
+      }</style>
   </head>
   <body>
-    <div id="bar">
-      <div id="container">
-        <span style="font-size:20px;"><a href="/">DNS-API.org</a> - An online DNS lookup service.</span>
-        <div id="loginContainer">
+
+
+    <div class="navbar navbar-inverse  navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">DNS-API.org - <small>An online DNS lookup service.</small></a>
         </div>
+        <div class="collapse navbar-collapse">
+        </div><!--/.nav-collapse -->
       </div>
     </div>
-    <div id="content">
-<h1>DNS API</h1>
-<p>About:</p>
-<blockquote>
-<p>Lookup DNS records via HTTP, and respond with JSON-encoded results.</p>
-</blockquote>
-<p>Usage:</p>
-<blockquote><pre>
-$ curl http://dns-api.org/$type/$host
-</pre></blockquote>
-<p>For example:</p>
-<blockquote><pre>
-$ curl <a href="http://dns-api.org/A/gmail.com">http://dns-api.org/A/gmail.com</a>
-</pre></blockquote>
-<p>Or:</p>
-<blockquote><pre>
-$ curl <a href="http://dns-api.org/mx/googlemail.com">http://dns-api.org/mx/googlemail.com</a>
-</pre></blockquote>
-<p>IPv6 lookups work, as you'd expect:</p>
-<blockquote><pre>
-$ curl <a href="http://dns-api.org/AAAA/dns-api.org">http://dns-api.org/AAAA/dns-api.org</a>
-</pre></blockquote>
-    </div>
-<div style="border-top:1px solid silver">
-  <table width="100%">
-    <tr>
-      <td width="25%" valign="top"></td>
-      <td width="25%" valign="top">
-        <ul>
-          <li>Related Links
-            <ul>
-              <li><a href="http://dhcp.io/">Fast and Reliable Dynamic-DNS</a></li>
-              <li><a href="http://dns-api.com/">Git-based DNS Hosting</a></li>
+
+<div class="wrapper">    <div class="container">
+      <h1>DNS Lookup Service</h1>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-1 col-md-1">
+          </div>
+          <div class="col-sm-11 col-md-11">
+            <p>This service allows you to perform DNS-lookups via simple HTTP requests, receiving your results back as JSON-encoded objects.</p>
+            <p>The most basic usage example would look like this:</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1 col-md-2">
+          </div>
+          <div class="col-sm-11 col-md-10">
+            <p><code>
+              $ curl http://dns-api.org/$type/$host
+            </code></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1 col-md-1">
+          </div>
+          <div class="col-sm-11 col-md-11">
+            <p>For example to lookup which hosts handle email for the <code>gmail.com</code> domain you could make the following request:</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1 col-md-2">
+          </div>
+          <div class="col-sm-11 col-md-10">
+            <p><code>
+              $ curl <a href="http://dns-api.org/A/gmail.com">http://dns-api.org/A/gmail.com</a>
+            </code></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1 col-md-1">
+          </div>
+          <div class="col-sm-11 col-md-11">
+            <p>IPv6 lookups work exactly as you would expect, as does the lookup of TXT results too:</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-1 col-md-2">
+          </div>
+          <div class="col-sm-11 col-md-10">
+            <p><code>
+              $ curl <a href="http://dns-api.org/AAAA/dns-api.org">http://dns-api.org/AAAA/dns-api.org</a>
+            </code></p>
+            <p><code>
+              $ curl <a href="http://dns-api.org/TXT/steve.org.uk">http://dns-api.org/TXT/steve.org.uk</a>
+            </code></p>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+
+          <footer id="footer" class="footer navbar-fixed-bottom steve-footer">
+        <div class="container">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-3">
+            <ul class="nav ">
+              <li class="nav-header">Related Services</li>
+              <li><a href="https://dhcp.io/">Fast and Reliable Dynamic-DNS</a>
+              </li>
+              <li><a href="https://dns-api.com/">Git-based DNS-Hosting</a>
+              </li>
             </ul>
-          </li>
-        </ul>
-      </td>
-      <td width="25%" valign="top">
-        <ul>
-          <li>Author Links
-            <ul>
+          </div>
+          <div class="col-md-3">
+            <ul class="nav ">
+              <li class="nav-header">Author Links</li>
               <li><a href="http://blog.steve.org.uk/">Blog</a></li>
               <li><a href="https://twitter.com/Stolen_Souls">Twitter</a></li>
             </ul>
-          </li>
-        </ul>
-      </td>
-      <td width="25%" valign="top">
-      <p><a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"   data-via="Stolen_Souls" data-url="http://dns-api.org/">Tweet</a></p>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-      </td>
-    </tr>
-  </table>
-</div>
+          </div>
+          <div class="col-md-3">
+            <ul class="nav ">
+              <li class="nav-header">Copyright</li>
+              <li>&copy; 2014-2016 - Steve Kemp</li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
   </body>
 </html>
