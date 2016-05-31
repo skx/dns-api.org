@@ -1,2 +1,5 @@
 #!/bin/sh
-exec plackup  -s Twiggy --workers=4 -0 127.0.0.1 -p 5001 -a ./bin/dns-api --access-log logs/access.log -E production
+#
+#  Ensure we log to a file based on the current-day.
+#
+exec plackup  -s Twiggy --workers=4 -0 127.0.0.1 -p 5001 -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
