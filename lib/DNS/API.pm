@@ -141,9 +141,22 @@ get '/:type/:domain/?' => sub {
 
     content_type 'application/json';
 
-    my $json = JSON->new();
-    my $out  = $json->encode( \@results );
+    my $json;
 
+    # Try to work out if we're being tested by a browser
+    # or not.  Just to be nice.
+    my $lang = request->accept_language();
+
+    if ( $lang && length($lang) )
+    {
+        $json = JSON->new->pretty;
+    }
+    else
+    {
+        $json = JSON->new;
+    }
+
+    my $out = $json->encode( \@results );
     return ($out);
 };
 
@@ -158,7 +171,7 @@ get '/version/?' => sub {
 
     my $json = JSON->new();
     my $out  = $json->encode( \%result );
-    return ( $out );
+    return ($out);
 };
 
 1;
