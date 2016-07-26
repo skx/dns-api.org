@@ -9,5 +9,5 @@ test:
 	prove --shuffle t/
 
 upload:
-	rsync -vazr --exclude=.git* . www.steve.org.uk:/etc/service/dns-api.org/
+	rsync -vazr --exclude=.git* . s-dns-org@www.steve.org.uk:
 	ssh www.steve.org.uk sv restart /etc/service/dns-api.org/
