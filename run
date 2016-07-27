@@ -19,4 +19,4 @@ if [[ $USER =~ ^s-*-* ]]; then
 fi
 
 # Launch
-exec plackup  -s Twiggy --workers=4 -0 127.0.0.1 -p 5001 -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
+exec plackup  -s Twiggy --workers=4 -0 127.0.0.1 -p $port -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
