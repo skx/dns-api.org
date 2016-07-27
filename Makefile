@@ -8,6 +8,6 @@ tidy:
 test:
 	prove --shuffle t/
 
-upload:
-	rsync -vazr --exclude=.git* . s-dns-org@www.steve.org.uk:
+deploy:
+	ssh s-dns-org@www.steve.org.uk git pull
 	ssh www.steve.org.uk sv restart /etc/service/dns-api.org/

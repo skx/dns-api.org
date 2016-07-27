@@ -1,5 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 #
-#  Ensure we log to a file based on the current-day.
+#  Launch the application.
 #
+#  1.  If we're launched by a username of the form /^s-dns/ then
+#     we bind to the port of the user-id.
+#
+#  2.  We log to logs/$(date).log
+#
+#
+
+
+# Default portj
+port=5001
+
+# Magic-user?
+if [[ $USER =~ ^s-*-* ]]; then
+    port=$(id -u)
+fi
+
+# Launch
 exec plackup  -s Twiggy --workers=4 -0 127.0.0.1 -p 5001 -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
