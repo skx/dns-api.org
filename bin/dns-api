@@ -44,7 +44,7 @@ builder
     #
     # 200/hr is a reasonable default
     #
-    enable 'Plack::Middleware::Throttle::Lite',
+    enable 'Plack::Middleware::Throttle::JSON',
       backend => 'Simple',
       limits  => '200 req/hour',
       routes  => '/';
@@ -55,4 +55,3 @@ builder
     #
     $app;
 };
-
