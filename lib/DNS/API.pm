@@ -28,7 +28,7 @@ The returned data will be a JSON-encoded array of hashes.
 
 =head1 Live Usage
 
-The code is deployed in production at http://dns-api.org/
+The code is deployed in production at https://dns-api.org/
 
 =cut
 
@@ -36,13 +36,13 @@ The code is deployed in production at http://dns-api.org/
 
  Steve
  --
- http://www.steve.org.uk/
+ http://steve.kemp.fi/
 
 =cut
 
 =head1 LICENSE
 
-Copyright (c) 2014 by Steve Kemp.  All rights reserved.
+Copyright (c) 2014-2016 by Steve Kemp.  All rights reserved.
 
 This module is free software;
 you can redistribute it and/or modify it under
