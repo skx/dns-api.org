@@ -16,6 +16,7 @@ This application is written in Perl, and almost all parts of this code are
 trivial.
 
 * The HTTP-server uses [Dancer](http://search.cpan.org/dist/Dancer/)
+     * The rate-limiting is applied via [Plack::Middleware::Throttle::Lite](http://search.cpan.org/perldoc?Plack%3A%3AMiddleware%3A%3AThrottle%3A%3ALite)
 * The DNS lookups are achieved via [Net::DNS::Resolver](http://search.cpan.org/perldoc?Net%3A%3ADNS%3A%3AResolver)
 
 
