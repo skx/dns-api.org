@@ -133,8 +133,29 @@ get '/' => sub {
 #
 get '/:type/:domain/?' => sub {
 
-    my $domain = params->{ 'domain' };
     my $rtype  = params->{ 'type' };
+    my $domain = params->{ 'domain' };
+
+    #
+    # We always return JSON.
+    #
+    content_type 'application/json';
+
+    #
+    #  Ensure we have a known type
+    #
+    if ( $rtype !~ /^(A|AAAA|ANY|CNAME|MX|NS|PTR|SOA|TXT)$/i )
+    {
+        return '{"error":"Invalid lookup-type - use A|AAAA|ANY|CNAME|MX|NS|PTR|SOA|TXT"}';
+    }
+
+    #
+    #  Ensure we're not handling abusive clients.
+    #
+    if ( $domain =~ /spamhaus.org/i )
+    {
+        return '{"error":"This service is not for RBL lookups"}';
+    }
 
     my @results = lookup( domain => $domain,
                           type   => $rtype, );
