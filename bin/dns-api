@@ -32,6 +32,7 @@ builder
     #
     # If the remote address is 127.0.0.1 load the reverse proxy
     # detecting module to get the real IP.
+    # TODO: Determine how this might work with nginx as the reverse proxy
     #
     # Do this first.
     #
@@ -43,10 +44,10 @@ builder
     # Ensure that we throttle requests.
     #
     # 200/hr is a reasonable default
-    #
+    # Changed to 20000/hr for this use case
     enable 'Plack::Middleware::Throttle::JSON',
       backend => 'Simple',
-      limits  => '200 req/hour',
+      limits  => '20000 req/hour',
       routes  => '/';
 
 
