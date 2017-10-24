@@ -31,6 +31,6 @@ and place behind a reverse HTTP-proxy:
 
     # apt-get install twiggy libdancer-perl libnet-cidr-lite-perl libplack-middleware-reverseproxy-perl
 
-
-Steve
+Thanks to Steve
+Credit: Steve Kemp - https://github.com/skx/
 --
