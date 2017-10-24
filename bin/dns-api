@@ -47,7 +47,7 @@ builder
     # Changed to 20000/hr for this use case
     enable 'Plack::Middleware::Throttle::JSON',
       backend => 'Simple',
-      limits  => '20000 req/hour',
+      limits  => '200 req/hour',
       routes  => '/';
 
 
