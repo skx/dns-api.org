@@ -44,7 +44,7 @@ builder
     # Ensure that we throttle requests.
     #
     # 200/hr is a reasonable default
-    # Changed to 20000/hr for this use case
+    #
     enable 'Plack::Middleware::Throttle::JSON',
       backend => 'Simple',
       limits  => '200 req/hour',
