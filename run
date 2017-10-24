@@ -20,4 +20,8 @@ fi
 
 # Launch
 echo "Launching on 127.0.0.1:$port"
+<<<<<<< HEAD
 exec plackup -s Twiggy --workers=4 -0 0.0.0.0 -p $port -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
+=======
+exec plackup -s Twiggy --workers=4 --host 127.0.0.1 -p $port -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
+>>>>>>> upstream/master
