@@ -1,11 +1,11 @@
-FROM ytnobody/alpine-perl
+FROM alpine
 
 WORKDIR /usr
-
-RUN cpm install Dancer Plack::Middleware::ReverseProxy Net::DNS::Resolver JSON \
+RUN apk update && apk add gcc g++ make perl perl-dev curl
+RUN curl -sL --compressed https://git.io/cpm > cpm && chmod +x cpm 
+RUN ./cpm install Plack
+RUN ./cpm install Dancer Plack::Middleware::ReverseProxy Net::DNS::Resolver JSON \
     YAML List::MoreUtils Net::CIDR::Lite Plack::Handler::Twiggy
-
-# RUN apk add --update nginx
 
 ENV PERL5LIB=/usr/local/lib/perl5
 ENV PATH=/usr/local/bin:$PATH
