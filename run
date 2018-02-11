@@ -18,6 +18,9 @@ if [ "$USER" = "s-dns-org" ]; then
     port=$(id -u)
 fi
 
+# Ensure we have a log-directory
+mkdir logs/ || true
+
 # Launch
 echo "Launching on 127.0.0.1:$port"
 exec plackup -s Twiggy --workers=4 --host 127.0.0.1 -p $port -a ./bin/dns-api --access-log logs/access.$(date +%Y-%m-%d).log -E production
