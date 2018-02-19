@@ -146,7 +146,8 @@ get '/:type/:domain/?' => sub {
     #
     if ( $rtype !~ /^(A|AAAA|ANY|CNAME|MX|NS|PTR|SOA|TXT)$/i )
     {
-        return '{"error":"Invalid lookup-type - use A|AAAA|ANY|CNAME|MX|NS|PTR|SOA|TXT"}';
+        return
+          '{"error":"Invalid lookup-type - use A|AAAA|ANY|CNAME|MX|NS|PTR|SOA|TXT"}';
     }
 
     #
@@ -157,9 +158,15 @@ get '/:type/:domain/?' => sub {
         return '{"error":"This service is not for RBL lookups"}';
     }
 
-    my @results = lookup( domain => $domain,
-                          type   => $rtype, );
 
+    my @results;
+    my $error;
+
+    # Lookup the DNS results - and catch errors.
+    eval { @results = lookup( domain => $domain, type => $rtype, );} ;
+    $error = $@ if ($@);
+
+    # Regardless of error/success we'll return JSON.
     content_type 'application/json';
 
     my $json;
@@ -177,7 +184,17 @@ get '/:type/:domain/?' => sub {
         $json = JSON->new;
     }
 
-    my $out = $json->encode( \@results );
+    my $out;
+    if ($error)
+    {
+        my %tmp;
+        $tmp{ 'error' } = $error;
+        $out = $json->encode( \%tmp );
+    }
+    else
+    {
+        $out = $json->encode( \@results );
+    }
     return ($out);
 };
 
