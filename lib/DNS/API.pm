@@ -170,8 +170,8 @@ get '/:type/:domain/?' => sub {
     content_type 'application/json';
 
     # We'll add the CORS headers as well
-    header('Access-Control-Allow-Origin', '*')
-    header('Access-Control-Expose-Headers', '*')
+    header('Access-Control-Allow-Origin', '*');
+    header('Access-Control-Expose-Headers', '*');
 
     my $json;
 
@@ -209,8 +209,8 @@ get '/:type/:domain/?' => sub {
 get '/version/?' => sub {
 
     content_type 'application/json';
-    header('Access-Control-Allow-Origin', '*')
-    header('Access-Control-Expose-Headers', '*')
+    header('Access-Control-Allow-Origin', '*');
+    header('Access-Control-Expose-Headers', '*');
     my %result = ( version => $VERSION );
 
     my $json = JSON->new();
