@@ -1,4 +1,9 @@
 
+**NOTE**: This project has been replaced by a golang port:
+
+* https://github.com/skx/dns-api-go
+
+
 DNS-API.org
 -----------
 
